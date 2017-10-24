@@ -1,0 +1,8 @@
+[package]
+name = "tt"
+version = "0.0.1"
+authors = ["koehr <n@koehr.in>"]
+
+[dependencies]
+chrono = "0.4"
+colored = "1.5"
