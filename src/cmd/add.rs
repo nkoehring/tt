@@ -1,11 +1,16 @@
 use std::io::{self, BufRead};
 use persistence::save_report;
 use models::Entry;
+use colored::*;
 
 fn add_from_stdio(entries: &mut Vec<Entry>) -> Result<usize, ()> {
     let mut count = 0;
 
-    println!("New entry (hours, comment)");
+    let msg1 = "Add entries line by line like ‘".italic();
+    let msg2 = "2.5 foo bar baz".bold();
+    let msg3 = "’ and press CTRL+d when finished".italic();
+    println!("{}{}{}", msg1, msg2, msg3);
+
     let stdin = io::stdin();
     for line in stdin.lock().lines() {
         let line = line.expect("Failed to read line");
@@ -36,7 +41,7 @@ pub fn add_entry(mut entries: &mut Vec<Entry>, args: &[String], file_name: &str)
         add_from_stdio(&mut entries).unwrap_or(0)
     };
 
-    println!("{} entries added.", count);
+    println!("{} entries added", count);
     if count > 0 {
         match save_report(&entries, file_name) {
             Ok(_) => println!("{} updated", file_name),
