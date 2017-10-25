@@ -6,8 +6,7 @@ Minimalist, manual time tracker. It gives you a helping hand and some colorful o
 screenshot
 ----------
 
-
-
+![screenshot](scrot.jpg)
 
 Usage
 -----
