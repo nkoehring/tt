@@ -76,3 +76,5 @@ planned features
 Currently editing and deleting of entries has to be done manually. I thought about an _edit mode_, that makes this more handy.
 
 The default output of `tt` and `tt report` condenses single entries to one line per day. I want condense it further so that for older entries only a summary for the whole month is shown if there is more than one month. Maybe even so much that only the last 5 days or so are shown (but usually the whole current month is of interest).
+
+Projects! The tool should be able to distinguish between projects. A configuration file could hold projects with paths to reports and maybe some formatting rules?
