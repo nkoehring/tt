@@ -77,3 +77,29 @@ Currently editing and deleting of entries has to be done manually. I thought abo
 The default output of `tt` and `tt report` condenses single entries to one line per day. I want condense it further so that for older entries only a summary for the whole month is shown if there is more than one month. Maybe even so much that only the last 5 days or so are shown (but usually the whole current month is of interest).
 
 Projects! The tool should be able to distinguish between projects. A configuration file could hold projects with paths to reports and maybe some formatting rules?
+
+build
+-----
+
+There are no packages, yet. To "install", you need [Rust](https://www.rustup.rs/), develop on nightly but it might just work fine with stable.
+
+If you've installed Rust and Cargo (installed with Rustup), you can build tt yourself:
+
+```sh
+git clone https://github.com/nkoehring/tt.git
+cd tt
+cargo build --release
+```
+
+You'll find the program in `./target/release/`. You can "install" it by putting it into your $PATH. If you have a local bin folder, then you'd do for example:
+
+```sh
+cp target/release/tt ~/.local/bin/tt
+```
+
+Or use a link:
+
+```sh
+cd ~/.local/bin/
+ln -s /path/to/tt/target/release/tt tt
+```
