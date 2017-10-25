@@ -81,7 +81,7 @@ Projects! The tool should be able to distinguish between projects. A configurati
 build
 -----
 
-There are no packages, yet. To "install", you need [Rust](https://www.rustup.rs/), develop on nightly but it might just work fine with stable.
+There are no packages, yet. To "install", you need [Rust](https://www.rustup.rs/). I develop `tt` on nightly but it might just work fine with stable.
 
 If you've installed Rust and Cargo (installed with Rustup), you can build tt yourself:
 
