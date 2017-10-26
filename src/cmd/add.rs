@@ -1,4 +1,5 @@
 use std::io::{self, BufRead};
+use std::path::PathBuf;
 use persistence::save_report;
 use models::Entry;
 use colored::*;
@@ -34,7 +35,7 @@ fn add_from_args(entries: &mut Vec<Entry>, slice: &[String]) -> Result<usize, ()
 }
 
 
-pub fn add_entry(mut entries: &mut Vec<Entry>, args: &[String], file_name: &str) {
+pub fn add_entry(mut entries: &mut Vec<Entry>, args: &[String], file_name: &PathBuf) {
     let count = if args.len() > 3 {
         add_from_args(&mut entries, &args[2..]).unwrap_or(0)
     } else {
@@ -44,7 +45,7 @@ pub fn add_entry(mut entries: &mut Vec<Entry>, args: &[String], file_name: &str)
     println!("{} entries added", count);
     if count > 0 {
         match save_report(&entries, file_name) {
-            Ok(_) => println!("{} updated", file_name),
+            Ok(_) => println!("{} updated", file_name.display()),
             Err(err) => println!("Couldn't update report!\n{:?}", err),
         }
     }

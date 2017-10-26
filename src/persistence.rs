@@ -1,10 +1,11 @@
 use std::io::{self, BufRead, BufReader, Write};
 use std::fs::File;
+use std::path::PathBuf;
 
 use models::Entry;
 
 
-pub fn load_report(entries: &mut Vec<Entry>, path: &str) -> io::Result<usize> {
+pub fn load_report(entries: &mut Vec<Entry>, path: &PathBuf) -> io::Result<usize> {
     let file = File::open(path)?;
     let mut count = 0;
 
@@ -21,7 +22,7 @@ pub fn load_report(entries: &mut Vec<Entry>, path: &str) -> io::Result<usize> {
 }
 
 
-pub fn save_report(entries: &[Entry], path: &str) -> Result<usize, io::Error> {
+pub fn save_report(entries: &[Entry], path: &PathBuf) -> Result<usize, io::Error> {
     let mut file = File::create(path)?;
     let map = entries.into_iter().map(|e| format!("{:?}", e));
     let output = map.collect::<Vec<String>>().join("\n");

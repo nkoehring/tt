@@ -6,3 +6,5 @@ authors = ["koehr <n@koehr.in>"]
 [dependencies]
 chrono = "0.4"
 colored = "1.5"
+xdg = "2.1"
+toml = "0.4"
