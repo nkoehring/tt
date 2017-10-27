@@ -8,7 +8,7 @@ use std::path::PathBuf;
 mod cmd;
 mod models;
 mod persistence;
-mod configuration;
+mod tomlbox;
 use models::Entry;
 use persistence::load_report;
 
@@ -18,7 +18,7 @@ fn main() {
     let cmd = if args.len() > 1 { args[1].clone() } else { "report".to_owned() };
     let mut entries: Vec<Entry> = vec![];
 
-    let config = configuration::load();
+    let config = persistence::load_config();
     println!("Configuration:\n{:#?}\n", config);
 
     let project_path = match config.project() {

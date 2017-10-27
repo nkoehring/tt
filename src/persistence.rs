@@ -1,8 +1,10 @@
 use std::io::{self, BufRead, BufReader, Write};
 use std::fs::File;
 use std::path::PathBuf;
+use xdg::BaseDirectories;
 
-use models::Entry;
+use models::{Entry, Config};
+use tomlbox::*;
 
 
 pub fn load_report(entries: &mut Vec<Entry>, path: &PathBuf) -> io::Result<usize> {
@@ -28,4 +30,22 @@ pub fn save_report(entries: &[Entry], path: &PathBuf) -> Result<usize, io::Error
     let output = map.collect::<Vec<String>>().join("\n");
 
     file.write(output.as_bytes())
+}
+
+
+fn check_config_path() -> PathBuf {
+    let xdg_dirs = BaseDirectories::with_prefix("tt")
+                   .expect("XDG doesn't work and I don't know why :S");
+
+    xdg_dirs.place_config_file("config.toml")
+    .expect("Unable to create configuration path :(")
+}
+
+
+pub fn load_config() -> Config {
+    let config_path = check_config_path();
+    match load_toml(&config_path) {
+        Ok(raw_config) => Config::from_toml(&raw_config),
+        Err(err) => panic!("{:?}", err),
+    }
 }
