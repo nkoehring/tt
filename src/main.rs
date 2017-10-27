@@ -19,7 +19,6 @@ fn main() {
     let mut entries: Vec<Entry> = vec![];
 
     let config = persistence::load_config();
-    println!("Configuration:\n{:#?}\n", config);
 
     let project_path = match config.project() {
         Some(project) => PathBuf::from(&project.path),
@@ -35,8 +34,8 @@ fn main() {
     }
 
     match cmd.as_ref() {
-        "report" => cmd::condensed_report(&entries),
-        "all" => cmd::verbose_report(&entries),
+        "report" => cmd::condensed_report(&entries, &config),
+        "all" => cmd::verbose_report(&entries, &config),
         "add" => cmd::add_entry(&mut entries, &args, &project_path),
         _ => println!("Usage: tt report|add"),
     }
