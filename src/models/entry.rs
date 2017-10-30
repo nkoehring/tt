@@ -43,15 +43,15 @@ impl Entry {
     }
 
     pub fn deserialize(line: &str) -> Entry {
-        let items: Vec<&str> = line.split(',').collect();
-        let date = items[0];
-        let hours = items[1];
-        let comment = items[2..].join("").trim_matches('"').to_owned();
+        let mut parts = line.split(',').map(str::trim);
+        let date = parts.next().unwrap_or_default();
+        let hours = parts.next().unwrap_or_default();
+        let comment = parts.collect::<Vec<_>>().join(", ");
 
         Entry {
-            date: date.to_string(),
+            date: date.to_owned(),
             hours: hours.parse::<f64>().unwrap_or(0.0),
-            comment: comment,
+            comment: comment.trim_matches('"').to_owned(),
         }
     }
 }
