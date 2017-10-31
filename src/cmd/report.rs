@@ -1,8 +1,8 @@
-use models::{Day, Entry, Config};
+use models::{Day, Entry, ProjectCfg};
 
 
-fn summary(total_hours: f64, cfg: &Config) {
-    if let Some(project) = cfg.project() {
+fn summary(total_hours: f64, project: Option<&ProjectCfg>) {
+    if let Some(project) = project {
         println!("\nProject {}: {:.1} hours total.", project.name, total_hours);
 
         if let Some(rate) = project.rate {
@@ -18,7 +18,7 @@ fn summary(total_hours: f64, cfg: &Config) {
 }
 
 
-pub fn verbose_report(entries: &[Entry], cfg: &Config) {
+pub fn verbose_report(entries: &[Entry], project: Option<&ProjectCfg>) {
     let mut total_hours = 0.0;
 
     for entry in entries {
@@ -26,11 +26,15 @@ pub fn verbose_report(entries: &[Entry], cfg: &Config) {
         println!("{}", entry);
     }
 
-    summary(total_hours, cfg);
+    summary(total_hours, project);
 }
 
 
-pub fn condensed_report(entries: &[Entry], cfg: &Config) {
+pub fn condensed_report(entries: &[Entry], project: Option<&ProjectCfg>) {
+    if entries.len() == 0 {
+        return summary(0.0, project);
+    }
+
     let last_index = entries.len() - 1;
     let mut days = vec![];
     let mut cursor = &entries[0].date;
@@ -61,5 +65,5 @@ pub fn condensed_report(entries: &[Entry], cfg: &Config) {
         println!("{}", day);
     }
 
-    summary(hours, cfg);
+    summary(hours, project);
 }

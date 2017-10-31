@@ -46,6 +46,6 @@ pub fn load_config() -> Config {
     let config_path = check_config_path();
     match load_toml(&config_path) {
         Ok(raw_config) => Config::from_toml(&raw_config),
-        Err(err) => panic!("{:?}", err),
+        Err(_) => Config::new(),
     }
 }

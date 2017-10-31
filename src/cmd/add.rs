@@ -36,8 +36,8 @@ fn add_from_args(entries: &mut Vec<Entry>, slice: &[String]) -> Result<usize, ()
 
 
 pub fn add_entry(mut entries: &mut Vec<Entry>, args: &[String], file_name: &PathBuf) {
-    let count = if args.len() > 3 {
-        add_from_args(&mut entries, &args[2..]).unwrap_or(0)
+    let count = if args.len() > 0 {
+        add_from_args(&mut entries, args).unwrap_or(0)
     } else {
         add_from_stdio(&mut entries).unwrap_or(0)
     };

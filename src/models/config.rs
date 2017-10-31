@@ -11,7 +11,16 @@ pub struct Config {
 }
 
 impl Config {
-    pub fn from_toml(cfg: &Table) -> Config {
+    pub fn new() -> Self {
+        Config {
+            default_project: None,
+            default_currency: None,
+            default_rate: None,
+            projects: vec![],
+        }
+    }
+
+    pub fn from_toml(cfg: &Table) -> Self {
         let default_project = cfg_string("default_project", cfg);
         let default_currency = cfg_string("default_currency", cfg);
         let default_rate = cfg_number("default_rate", cfg);
@@ -40,8 +49,16 @@ impl Config {
         }
     }
 
-    pub fn project(&self) -> Option<&ProjectCfg> {
-        Some(&self.projects[0])
+    pub fn project(&self, project_name: Option<&str>) -> Option<&ProjectCfg> {
+        let mut projects = self.projects.iter();
+
+        if let Some(name) = project_name {
+            projects.find(|p| p.name.as_str() == name)
+        } else if let Some(ref name) = self.default_project {
+            projects.find(|p| &p.name == name)
+        } else {
+            projects.next()
+        }
     }
 }
 
